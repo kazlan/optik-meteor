@@ -1,0 +1,57 @@
+<head>
+  <title>optik</title>
+</head>
+
+<body>
+  {{> navigate}}	
+  <div class="row" id="MAINROW">
+    {{> leftPane}}
+    {{> mainPane}}
+  </div>
+</body>
+
+<template name="leftPane">
+  <div class="span2" id="leftPane"> 
+	{{> searchPane }}
+  </div>
+</template>
+
+<template name="mainPane">
+	<div class="span" id="mainPane">
+		{{> listaClientes }}
+	</div>
+</template>
+
+
+<template name="listaClientes">
+  <div id="listaClientes">	
+	{{#each clientes}}
+		{{> cadaCliente}}
+	{{/each}}
+  </div>
+</template>
+
+<template name="cadaCliente">
+	<div style="height: 80px;width:180px;display:block;background-color: #eee;margin:4px;border: 1px solid; border-color: #ccc">
+		<button class="close eliminaCliente">&times;</button> 
+		<a href="#" class="listItem" data-id="{{_id}}"> {{nombre}} </a> 
+		 {{#if countcitas }}
+		 	<span class="badge badge-info">{{countcitas}}</span>
+		 {{/if}} 
+		 {{#if countalertas }}
+		 	<span class="badge badge-important">{{countalertas}}</span>
+		 {{/if}}
+	</div>
+</template>
+
+<template name="navigate">
+	<div class="navbar">
+	  <div class="navbar-inner">
+	    <a class="brand" href="#">Optik</a>
+	    <ul class="nav">
+	      <li class="active"><a href="#">Home</a></li>
+	      <li><a href="#">Admin</a></li>
+	    </ul>
+	  </div>
+	</div>
+</template>

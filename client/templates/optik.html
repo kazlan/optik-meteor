@@ -4,44 +4,54 @@
 
 <body>
   {{> navigate}}	
-  <div class="row" id="MAINROW">
-    {{> leftPane}}
-    {{> mainPane}}
+  <div class="container">
+  	<div class="row" id="MAINROW">
+  		<div class="span8 offset2">
+			{{> busquedas}}
+    		{{> rowsClientes}}
+    	</div>
+  	</div>
   </div>
 </body>
 
-<template name="leftPane">
-  <div class="span2" id="leftPane"> 
-	{{> searchPane }}
+<template name="rowsClientes">
+  <div id="tabla">
+	{{#if clientes}}
+	  <table>
+		{{#each clientes}}
+			{{> lineaCliente}}
+		{{/each}}
+	  </table>
+	{{else}}
+	  <div class="alert alert-info">
+	    Usa las casillas superiores para buscar clientes
+	  </div>
+	{{/if}}
   </div>
+</template>	
+
+<template name="busquedas">
+  <form class="form-inline">
+	<input type="text" class="input-medium qCampo" placeholder="nombre" id="qNombre">
+	<input type="text" class="input-small qCampo" placeholder="ciudad" id="qCiudad">
+	<input type="text" class="input-mini qCampo" placeholder="C.P." id="qCP">
+	<label class="checkbox">
+		<input type="checkbox" class="qCheck" id="qCitas"> Citas
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" class="qCheck" id="qAlertas"> Alertas
+	</label>
+
+	<button class="btn" type="button" id="btnCSV">CSV</button>
+	<button class="btn" type="button" id="btnCLEAR">Clear</button>
+  </form>
 </template>
-
-<template name="mainPane">
-	<div class="span" id="mainPane">
-		{{> listaClientes }}
-	</div>
-</template>
-
-
-<template name="listaClientes">
-  <div id="listaClientes">	
-	{{#each clientes}}
-		{{> cadaCliente}}
-	{{/each}}
-  </div>
-</template>
-
-<template name="cadaCliente">
-	<div style="height: 100px;width:200px;display:table-cell;background-color: #eee;margin:6px;border: 1px solid; border-color: #ccc">
-		<button class="close eliminaCliente">&times;</button> 
-		<a href="#" class="listItem" data-id="{{_id}}"> {{nombre}} </a> 
-		 {{#if countcitas }}
-		 	<span class="badge badge-info">{{countcitas}}</span>
-		 {{/if}} 
-		 {{#if countalertas }}
-		 	<span class="badge badge-important">{{countalertas}}</span>
-		 {{/if}}
-	</div>
+<template name="lineaCliente">
+	<tr>
+		<td>{{beauty_nombre}}</td>
+		<td>{{beauty_ciudad}}</td>
+		<td>{{countcitas}}|{{countalertas}}</td>
+	</tr>
 </template>
 
 <template name="navigate">

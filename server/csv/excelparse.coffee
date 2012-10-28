@@ -30,7 +30,7 @@ linea2obj= (line)->
     nombre : data[1].toString()
     provincia : data[17]
     direccion : data[18]
-    ciudad : data[19]
+    ciudad : cortaCiudad data[19]#elimina las provincias entre ()
     cp : data[20].toString()
     telefono : data[21]
     marcas :
@@ -41,7 +41,13 @@ linea2obj= (line)->
     #citas: []
     #alertas: []
 
-  if Clientes.findOne({nombre:doc.nombre})
+  if (x=Clientes.findOne({nombre:doc.nombre}))
     console.log "#{doc.nombre} ya existe"
   else  
     Clientes.insert doc
+
+cortaCiudad = (str) ->
+  if str.indexOf('(')?
+    return str.slice 0, (str.indexOf '(')
+  else
+    return str

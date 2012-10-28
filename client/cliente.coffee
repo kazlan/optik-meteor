@@ -4,3 +4,5 @@ insertar= (cliente)->
 
 eliminar= (id) ->
 	Clientes.remove({_id: id}) 
+
+

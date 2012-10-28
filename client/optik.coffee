@@ -1,42 +1,44 @@
 Clientes = new Meteor.Collection 'clientes'
 
-Template.listaClientes.clientes = ->
-  data = Session.get "searchData" 
-  Clientes.find data 
+#Lista de clientes para la tabla principal
+Template.rowsClientes.clientes = ->
+  data = Session.get "searchData"
+  logProperties data
+  if _.keys(data).length > 0
+    return Clientes.find data
+  else
+    return false
 
-Template.listaClientes.events 
-  'click .listItem' : ->
-    console.log "item clicked"
-    insertar {nombre: "test"}
-Template.listaClientes.rendered = ->
-  $('#listaClientes').gridalicious()
-
-#devuelve citas y alertas si existen
-Template.cadaCliente.countcitas = ->
-  if (x=Clientes.findOne(@_id).citas)? then x.length
-
-Template.cadaCliente.countalertas = ->
-  if (x=Clientes.findOne(@_id).alertas)? then x.length
-
-Template.cadaCliente.events
-  'click .eliminaCliente' : ->
-    eliminar(@_id)
-
-Template.searchPane.events
-  'click #btnToList, keyup .qCampo' : ->
+#Eventos en las casillas de busqueda
+Template.busquedas.events
+  'keyup .qCampo, change .qCheck' : ->
     query = {}
-    #asigna los campos a query si no son blancos
-    if (x = $("#qNombre").val()) != "" then query.nombre = {$regex: x}
-    if (x = $("#qCiudad").val()) != "" then query.ciudad = {$regex: x}
-    if (x = $("#qProvincia").val()) != "" then query.provincia = {$regex: x}
+    if (x = $("#qNombre").val()) != "" then query.nombre = {$regex: x.toUpperCase()}
+    if (x = $("#qCiudad").val()) != "" then query.ciudad = {$regex: x.toUpperCase()}
     if (x = $("#qCP").val()) != "" then query.cp = {$regex: x}
-    if (x = $("#qTelefono").val()) != "" then query.telefono = {$regex: x}
+    if $('#qCitas').is(':checked') then query.citas = {$exists: true}
+    if $('#qAlertas').is(':checked') then query.alertas = {$exists: true}
     Session.set "searchData", query
+
+
   'click #btnCSV' : ->
     Meteor.call 'importar', 'datos.csv'
     console.log "csv click"
   'click #btnCLEAR' : ->
-    Clientes.remove({})
+    Clientes.remove({})  
+
+#Para cada linea de la tabla principal
+Template.lineaCliente.countcitas = ->
+  if (x=Clientes.findOne(@_id).citas)? then x.length
+Template.lineaCliente.countalertas = ->
+  if (x=Clientes.findOne(@_id).alertas)? then x.length
+Template.lineaCliente.beauty_nombre = ->
+  return @nombre.slice 0,24
+Template.lineaCliente.beauty_ciudad = ->
+  return @ciudad
+Template.lineaCliente.events
+  'click .eliminaCliente' : ->
+    eliminar(@_id)
 
 Meteor.startup ->
   Session.set "searchData", conCitasoAlertas()
@@ -51,5 +53,4 @@ logProperties = (obj) ->
     console.log "#{key}:#{value}"
 
 conCitasoAlertas = ->
-  #return {$or: [{citas: {$exists:true }},{alertas: {$exists: true}}]}
-  return {alertas: {$exists: true}}
+  return {$or: [{citas: {$exists:true }},{alertas: {$exists: true}}]}

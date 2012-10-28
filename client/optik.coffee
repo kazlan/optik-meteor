@@ -35,9 +35,11 @@ Template.searchPane.events
   'click #btnCSV' : ->
     Meteor.call 'importar', 'datos.csv'
     console.log "csv click"
+  'click #btnCLEAR' : ->
+    Clientes.remove({})
 
 Meteor.startup ->
-  Session.set "searchData", {}
+  Session.set "searchData", conCitasoAlertas()
 
 
 ##########################
@@ -47,3 +49,7 @@ Meteor.startup ->
 logProperties = (obj) ->
   for key, value of obj
     console.log "#{key}:#{value}"
+
+conCitasoAlertas = ->
+  #return {$or: [{citas: {$exists:true }},{alertas: {$exists: true}}]}
+  return {alertas: {$exists: true}}

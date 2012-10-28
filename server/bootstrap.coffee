@@ -12,11 +12,7 @@ Meteor.startup ->
         {fecha: "date object",
         texto: "lalalala",
         agente: "nombre"}
-      ],
-      alertas: [
-        {tipo: "llamar/visitar",
-        fecha: "date",
-        agente: "nombre"}]
+      ]
     }
     Clientes.insert(data)
     data = {

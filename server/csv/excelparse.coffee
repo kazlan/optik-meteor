@@ -1,8 +1,8 @@
 
 Meteor.methods
   importar: (archivo) ->
-    console.log "en metodo"
-    importarCSV('datos.csv')
+  #export de Google docs a TXT (Tab separated values)  
+    importarCSV('datos.tsv')
 
 importarCSV = (archivo)->
   fs = __meteor_bootstrap__.require('fs')
@@ -12,7 +12,7 @@ importarCSV = (archivo)->
   data = buffer.split '\n'
   
   #parsea cada linea menos la primera
-  linea2obj(linea) for linea in data[1..3]
+  linea2obj(linea) for linea in data[1..200]
   
 ########
 # Estructura de linea
@@ -25,20 +25,23 @@ importarCSV = (archivo)->
 ################
 linea2obj= (line)->
 
-  data = line.split ','
+  data = line.split '\t'
   doc = 
-    nombre : data[1]
+    nombre : data[1].toString()
     provincia : data[17]
     direccion : data[18]
     ciudad : data[19]
-    cp : data[20]
+    cp : data[20].toString()
     telefono : data[21]
     marcas :
       marca : data[5]
       pup : data[15]
       fup : data[16]
-    citas : []
-    alertas : []
-  for key, value of doc
-    console.log "#{key}:#{value}"
-  Clientes.insert doc
+    #citas y alertas solo las metemos si existen
+    #citas: []
+    #alertas: []
+
+  if Clientes.findOne({nombre:doc.nombre})
+    console.log "#{doc.nombre} ya existe"
+  else  
+    Clientes.insert doc

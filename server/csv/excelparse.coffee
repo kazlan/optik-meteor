@@ -1,18 +1,12 @@
-
 Meteor.methods
-  importar: (archivo) ->
+  importar: (data) ->
   #export de Google docs a TXT (Tab separated values)  
-    importarCSV('datos.tsv')
+    importarFilePicker data
 
-importarCSV = (archivo)->
-  fs = __meteor_bootstrap__.require('fs')
-  path = __meteor_bootstrap__.require('path')
-  base = path.resolve('.')
-  buffer = fs.readFileSync( path.join(base, '/public/data/', archivo)).toString()
+importarFilePicker = (buffer)->
   data = buffer.split '\n'
-  
   #parsea cada linea menos la primera
-  linea2obj(linea) for linea in data[1..200]
+  linea2obj(linea) for linea in data[1...]
   
 ########
 # Estructura de linea

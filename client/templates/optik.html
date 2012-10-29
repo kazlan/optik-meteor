@@ -4,15 +4,41 @@
 
 <body>
   {{> navigate}}	
+  {{> pageRenderer}}
+</body>
+
+<template name="pageRenderer">
   <div class="container">
   	<div class="row" id="MAINROW">
   		<div class="span8 offset2">
-			{{> busquedas}}
-    		{{> rowsClientes}}
+  			{{#if homePage}}
+				{{> busquedas}}
+    			{{> rowsClientes}}
+    		{{/if}}
+    		{{#if datosPage}}
+    			{{> fileUpload}}
+			{{/if}}    			
     	</div>
   	</div>
   </div>
-</body>
+</template>
+
+<template name="fileUpload">
+  <div class="alert alert-info">
+    <p>Lectura del archivo de datos</p>
+    <p>
+    	<table>
+    	<tr><td>#1: Generar una copia de seguridad.</td></tr>
+    	<tr><td>#2: Importar el archivo en formato TSV.</td></tr>
+    	<tr><td>#3: Revisar la situacion de los campos.</td></tr>
+    	<tr><td>#4: Insertar los nuevos datos.</tr>
+    	</table>
+    </p>
+    <p>
+      <input type="filepicker" id='uploadWidget'/>	
+    </p>
+  </div>
+</template>
 
 <template name="rowsClientes">
   <div id="tabla">
@@ -44,6 +70,8 @@
 
 	<button class="btn" type="button" id="btnCSV">CSV</button>
 	<button class="btn" type="button" id="btnCLEAR">Clear</button>
+	<button class="btn" type="button" id="btnREAD">Read</button>
+
   </form>
 </template>
 <template name="lineaCliente">
@@ -59,8 +87,8 @@
 	  <div class="navbar-inner">
 	    <a class="brand" href="#">Optik</a>
 	    <ul class="nav">
-	      <li class="active"><a href="#">Home</a></li>
-	      <li><a href="#">Admin</a></li>
+	      <li class="active qNav" id="qHome"><a href="#">Home</a></li>
+	      <li class = "qNav" id="qDatos"><a href="#">Datos</a></li>
 	    </ul>
 	  </div>
 	</div>

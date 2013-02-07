@@ -1,0 +1,42 @@
+<template name="fileUpload">
+  <div id="botoneraDatos">
+  	<button class="btn" type="button" id="btnCSV">CSV</button>
+	<button class="btn" type="button" id="btnCLEAR">Clear</button>
+	<button class="btn" type="button" id="btnBackup">Backup</button>
+	<button class="btn" type="button" id="btnRestore">Restore</button>
+	<button class="btn" type="button" id="btnFixCercanas">Fix Cercanas</button>
+  </div>	
+  <div class="alert alert-info">
+    <p>Lectura del archivo de datos</p>
+    <p>
+    	<table>
+    	<tr><td>#1: Generar una copia de seguridad.</td></tr>
+    	<tr><td>#2: Importar el archivo en formato TSV.</td></tr>
+    	<tr><td>#3: Revisar la situacion de los campos.</td></tr>
+    	<tr><td>#4: Insertar los nuevos datos.</tr>
+    	</table>
+    </p>
+    <p>
+      <input type="filepicker" id='uploadWidget'/>	
+    </p>
+    {{#if mensaje}}
+    	<p id="mensajes">
+    		{{mensaje}}
+    	<p>
+    {{/if}}
+    {{> editorFicha}}
+  </div>
+</template>
+
+<template name="editorFicha">
+  <div id="editor">
+    <div id="editBotonera">
+      <input type="text" id="inputNombre" placeholder="Nombre cliente">
+      <button class="btn" type="button" id="btnLoadFicha">Cargar</button>
+    </div>
+    <div id="detalleFicha">
+      <input type="text" id="detalleNombre" placeholder="nombre completo">
+      <input type="text" id="detalleAlertaCercana" placeholder="alertaCercana">
+
+  </div>
+</template>

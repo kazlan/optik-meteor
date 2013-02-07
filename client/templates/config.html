@@ -1,0 +1,22 @@
+<template name="config">
+  <div class="alert alert-info">
+    <p>Configuración del archivo de datos</p>
+    <p>
+    	<table>
+    	<tr><td> Nos interesa saber en qué columna del archivo que vamos a subir</td></tr>
+    	<tr><td> se encuentran los siguientes datos</td></tr>
+    	<tr><td></td></tr>
+    	<tr><td>Nombre</td><td><input type="text" id="confNombre" class="input-mini" value='{{columnas.nombre}}'></input></td></tr>
+    	<tr><td>Direccion</td><td><input type="text" id="confDireccion" class="input-mini" value='{{columnas.direccion}}'></input></td></tr>
+    	<tr><td>Ciudad</td><td><input type="text" id="confCiudad" class="input-mini" value='{{columnas.ciudad}}'></input></td></tr>
+    	<tr><td>Telefono</td><td><input type="text" id="confTelefono" class="input-mini" value='{{columnas.telefono}}'></input></td></tr>
+    	<tr><td>Codigo postal</td><td><input type="text" id="confCP" class="input-mini" value='{{columnas.cp}}'></input></td></tr>
+    	<tr><td>Marca </td><td><input type="text" id="confMarca" class="input-mini" value='{{columnas.marca}}'></input></td></tr>
+    	<tr><td>Piezas del ultimo pedido</td><td><input type="text" id="confPup" class="input-mini" value='{{columnas.pup}}'></input></td></tr>
+    	<tr><td>Fecha del ultimo pedido</td><td><input type="text" id="confFup" class="input-mini" value='{{columnas.fup}}'></input></td></tr>
+        <tr><td>Facturadas en 2012</td><td><input type="text" id="confFact2012" class="input-mini" value='{{columnas.fact2012}}'></input></td></tr>
+        <tr><td>Piezas pendientes</td><td><input type="text" id="confpendientes" class="input-mini" value='{{columnas.pendientes}}'></input></td></tr>
+    	</table>
+    </p>
+  </div>
+</template>

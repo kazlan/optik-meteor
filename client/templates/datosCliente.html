@@ -1,0 +1,81 @@
+<template name="datosCliente">
+
+  {{> modalAlerta}}	
+  {{> modalOpcionesAlerta}}
+
+  <div id="detalleCliente">	
+	<div id='boxTitulo'>
+	  <span id="spanNombreCliente">
+	    {{datos.nombre}}
+	  </span>
+	  <span class="alignright">
+	  	<img src="/img/nota.jpg" class="icono-top" id="btnNota" style="margin-right: 8px;"></img>	
+	    <img src="/img/clock.png" class="icono-top" id="btnAlerta"></img>
+	  </span>
+	</div>
+	<div id="boxDireccion">
+	  {{datos.direccion}} ( {{datos.ciudad}} )
+	  <span class="alignright">
+		<img src="/img/Telephone-Alt.png" class="icono"></img>{{datos.telefono}}
+	  </span>
+	</div>
+
+    {{#if datos.marcas}}
+    <p><h4>Últimos pedidos</h4></p>
+      <div id="boxPedidos">
+		{{#each datos.marcas}}
+		  {{#if fup}}
+		    <div id="mainPedidos"> 	
+		      {{ marca }}
+		      {{ pup }} piezas
+		      {{momentPedido}}
+				  
+		      {{#if pendientes}}
+		   	    , tiene {{ pendientes}} piezas pendientes
+			  {{/if}}
+			  {{#if fact2012}}
+			    . Facturó {{fact2012}} piezas el 2012.
+			  {{/if}}
+			</div>  	
+		  {{/if}}
+		{{/each}}
+	  {{/if}}
+	</div>
+	{{#if datos.alertas}}
+	<p> </p>
+	<p><h4>Histórico de alertas</h4></p>
+	  <div id="boxAlertas">
+	      {{#each datos.alertas}}
+		    <div id="mainAlertas"> 
+			  {{ texto }}
+			  <span class="alignright">
+			  	{{moment}}
+			  	<span class="icono" style="margin-left: 10px; border-left: 1px solid rgba(0,0,0,0.2);">
+		  		<!--<i class="icon-cog" data-id="{{../../_id}}"></i>-->
+			  	  <img src="/img/cog.png" id="linkCog" class="icono" data-id="{{datos._id}}"></img>
+			  	</span>
+			  </span>
+		    </div>
+	      {{/each}}
+	  </div>
+	{{/if}}
+	<p></p>
+	{{#if datos.notas}}
+	  <p><h4>Notas</h4></p>
+	    <div id="boxNotas">
+    	  {{#each datos.notas}}
+    	    <div id="mainNotas">
+    	    	{{texto}}
+    	      <span class="alignright"> 
+    	    	{{moment}}
+    	    	<span class="icono" style="margin-left: 10px; border-left: 1px solid rgba(0,0,0,0.2);">
+    	    	  <img src="/img/close.png" class="icono" id="elimNota" 
+	    	    	     data-id="{{../../_id}}"></img>
+    	    	</span>
+    	      </span>
+    	    </div>
+          {{/each}}
+	    </div>
+	{{/if}}  
+  </div>
+</template>

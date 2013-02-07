@@ -1,0 +1,76 @@
+<template name="modalOpcionesAlerta">
+  <div id="mdlOpcionesAlerta" class="modal" style="display: none; ">
+  	<div class="modal-header">  
+	  <a class="close" data-dismiss="modal">×</a>  
+	  <h4>Confirmar cierre de la alerta</h4>  
+	</div>
+	<div class="modal-body">
+	  <p> <h4>Cerrarla como...</h4> </p>
+	    <span>
+		  	<a href="#" id="btnOpcionPos" class="btn btn-large btn-primary btn-success">Positiva</a>
+		  	<a href="#" id="btnOpcionNeg" class="btn btn-large btn-inverse">Negativa</a>
+		  	<a href="#" id="btnOpcionDelete" class="btn btn-large btn-danger">Eliminar</a>
+		 </span>
+		 <span class="alignright">
+		  	<a href="#" class="btn btn-large" data-dismiss="modal"> Cancelar</a>
+		  </span>
+	 </div>
+  </div>
+</template>
+
+<template name="modalAlerta">
+	<div id="alerta" class="modal hide fade" style="display: none; ">  
+	  <div class="modal-header">  
+	    <a class="close" data-dismiss="modal">×</a>  
+	    <h3>Añadir alerta</h3>  
+	  </div>  
+	  <div class="modal-body">  
+	    <h4> Fecha y hora</h4>  
+	    <p>
+	      <div id="datetimepicker" class="input-append date" data-date-format="dd-mm-yyyy hh:ii:ss">
+            <input type="text" size="22" id="inputFecha" 
+                   style="font-size: 22px;line-height: 130%;height:34px;"></input>
+            <span class="add-on"><i class="icon-th"></i></span>
+       	    <button class="btn btn-large btn-warning" type="button" id="btnAlarma" style="margin-left: 20px"><i class="icon-bell icon-white"></i> Alarma</button>
+       	    <button class="btn btn-large" type="button" id="btnCalendario" style="margin-left: 10px;margin-right: 6px"><i class="icon-calendar"></i> Calendario</button>        
+
+  		  </div>
+	    </p>    
+	    <h4> Texto </h4>
+	    <p>
+	    	<div id="textoAlerta">
+	    		<input type="text" class="span5" id="inputTexto"
+	    		style="font-size: 22px;line-height: 130%;height:34px;"></input>
+	    	</div>
+	    </p>   
+	  </div>  
+	  <div class="modal-footer">  
+	    <a href="#" class="btn btn-success btn-large" id="btnModalOK"><b>Guardar</b></a>  
+	    <a href="#" class="btn btn-large" data-dismiss="modal"><b>Cerrar</b></a>  
+	  </div> 
+	</div>
+</template>
+
+<template name="modalNota">
+	<div id="nota" class="modal hide fade" style="display: none; ">  
+	  <div class="modal-header">  
+	    <a class="close" data-dismiss="modal">×</a>  
+	    <h3>Añadir nota</h3>  
+	  </div>  
+	  <div class="modal-body">  
+	    <h4> Texto </h4>
+	    <p>
+	    	<div id="textoNota" class="control-group">
+	    	  	<div class="controls">
+	    		  <input type="text"  class="span5" id="inputNota"
+	    		  style="font-size: 22px;line-height: 130%;height:34px;"></input>
+	    		</div>
+	    	</div>
+	    </p>   
+	  </div>  
+	  <div class="modal-footer">  
+	    <a href="#" class="btn btn-large btn-success" id="btnNotaOK"><b>Guardar</b></a>  
+	    <a href="#" class="btn btn-large" data-dismiss="modal"><b>Cerrar</b></a>  
+	  </div> 
+	</div>
+</template>

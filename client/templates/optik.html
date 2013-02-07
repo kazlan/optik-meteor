@@ -1,53 +1,47 @@
 <head>
   <title>optik</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  {{> navigate}}	
+  {{> modalAlerta}}	
+  {{> modalOpcionesAlerta}}
+  {{> modalNota}}
+
+  {{> navigate}}
   {{> pageRenderer}}
 </body>
 
 <template name="pageRenderer">
   <div class="container">
   	<div class="row" id="MAINROW">
-  		<div class="span8 offset2">
+  		<div class="span10 offset1">
+		    {{> flash }} <!-- Notificaciones flash al guardar eventos -->	
+
   			{{#if homePage}}
 				{{> busquedas}}
     			{{> rowsClientes}}
     		{{/if}}
     		{{#if datosPage}}
     			{{> fileUpload}}
-			{{/if}}    			
+			{{/if}}   
+			{{#if detalleCliente}}
+				{{> datosCliente}}
+			{{/if}} 	
+			{{#if configPage}}
+				{{> config}}
+			{{/if}}		
     	</div>
   	</div>
-  </div>
-</template>
-
-<template name="fileUpload">
-  <div class="alert alert-info">
-    <p>Lectura del archivo de datos</p>
-    <p>
-    	<table>
-    	<tr><td>#1: Generar una copia de seguridad.</td></tr>
-    	<tr><td>#2: Importar el archivo en formato TSV.</td></tr>
-    	<tr><td>#3: Revisar la situacion de los campos.</td></tr>
-    	<tr><td>#4: Insertar los nuevos datos.</tr>
-    	</table>
-    </p>
-    <p>
-      <input type="filepicker" id='uploadWidget'/>	
-    </p>
   </div>
 </template>
 
 <template name="rowsClientes">
   <div id="tabla">
 	{{#if clientes}}
-	  <table>
 		{{#each clientes}}
 			{{> lineaCliente}}
 		{{/each}}
-	  </table>
 	{{else}}
 	  <div class="alert alert-info">
 	    Usa las casillas superiores para buscar clientes
@@ -56,30 +50,107 @@
   </div>
 </template>	
 
-<template name="busquedas">
-  <form class="form-inline">
-	<input type="text" class="input-medium qCampo" placeholder="nombre" id="qNombre">
-	<input type="text" class="input-small qCampo" placeholder="ciudad" id="qCiudad">
-	<input type="text" class="input-mini qCampo" placeholder="C.P." id="qCP">
-	<label class="checkbox">
-		<input type="checkbox" class="qCheck" id="qCitas"> Citas
-	</label>
-	<label class="checkbox">
-		<input type="checkbox" class="qCheck" id="qAlertas"> Alertas
-	</label>
-
-	<button class="btn" type="button" id="btnCSV">CSV</button>
-	<button class="btn" type="button" id="btnCLEAR">Clear</button>
-	<button class="btn" type="button" id="btnREAD">Read</button>
-
-  </form>
-</template>
 <template name="lineaCliente">
-	<tr>
-		<td>{{beauty_nombre}}</td>
-		<td>{{beauty_ciudad}}</td>
-		<td>{{countcitas}}|{{countalertas}}</td>
-	</tr>
+	<div id='boxCliente'>
+		<div id='boxTitulo'>
+			<span id="spanNombreCliente">
+				{{nombre}}
+			</span>
+			<span class="alignright">
+			  <img src="/img/nota.jpg" class="icono-top" id="btnNota" style="margin-right: 8px;"></img>	
+			  <img src="/img/clock.png" class="icono-top" id="btnAlerta"></img>
+			</span>
+		</div>
+		<div id="boxDireccion">
+			{{direccion}} ( {{ciudad}} )
+			<span class="alignright">
+				<img src="/img/Telephone-Alt.png" class="icono"></img>{{telefono}}
+			</span>
+		</div>
+		<div id="boxPedidos">
+			{{#if marcas}}
+			  {{#each marcas}}
+			    {{#if fup}}
+			      <div id="mainPedidos"> 	
+				    {{ marca }}
+				    {{ pup }} piezas
+				    {{momentPedido}}
+				  
+				    {{#if pendientes}}
+					  , tiene {{ pendientes}} piezas pendientes
+				    {{/if}}
+				    {{#if fact2012}}
+				      . Facturó {{fact2012}} piezas el 2012.
+				    {{/if}}
+				  </div>  	
+				{{/if}}
+			  {{/each}}
+			{{/if}}
+	    </div>
+		<div id="boxAlertas">
+			{{#if alertas}}
+			  {{#each alertas}}
+			    {{#if alertaActiva}}
+				    <div id="mainAlertas"> 
+					  {{ texto }}
+					  {{#if alarma}}
+					    <span style="margin-left: 10px"><i class="icon-bell" style="color: orange"></i></span>
+					  {{/if}}
+					  <span class="alignright">
+					  	{{moment}}
+					  	<span class="icono" style="margin-left: 10px; border-left: 1px solid rgba(0,0,0,0.2);">
+					  		<!--<i class="icon-cog" data-id="{{../../_id}}"></i>-->
+					  	  <img src="/img/cog.png" class="linkCog icono" data-id="{{../../_id}}"></img>
+					  	</span>
+					  </span>
+				    </div>
+				{{/if}}
+			  {{/each}}
+			{{/if}}
+	    </div>
+	    <div id="boxNotas">
+	    	{{#if notas}}
+	    	  {{#each notas}}
+	    	    <div id="mainNotas">
+	    	    	{{texto}}
+	    	      <span class="alignright"> 
+	    	    	{{moment}}
+	    	    	<span class="icono" style="margin-left: 10px; border-left: 1px solid rgba(0,0,0,0.2);">
+	    	    	  <img src="/img/close.png" class="icono" id="elimNota" 
+	    	    	     data-id="{{../../_id}}"></img>
+	    	    	</span>
+	    	      </span>
+	    	    </div>
+              {{/each}}
+            {{/if}}
+	    </div>
+	</div>
+</template>
+
+<template name="flash">
+  {{#if mensaje}}
+	<div id="flash" class="alert XXL">
+		{{mensaje}}
+	</div>
+  {{/if}}
+</template>
+
+<template name="busquedas">
+<div id="formulario">	
+  <form class="form-inline">
+	<input type="text" class="input-medium qCampo" placeholder="nombre" id="qNombre" style="font-size: 22px;line-height: 130%;height:34px;">
+	<input type="text" class="input-small qCampo" placeholder="ciudad" id="qCiudad" style="font-size: 22px;line-height: 130%;height:34px;">
+	<input type="text" class="input-small qCampo" placeholder="provincia" id="qProvincia" style="font-size: 22px;line-height: 130%;height:34px;">
+	<input type="text" class="input-small qCampo" placeholder="Meses" id="qFecha" style="font-size: 22px;line-height: 130%; height:34px;">
+	<button class="btn btn-large" type="button" id="qReset">Reset</button>
+  </form>
+ </div>
+</template>
+
+<template name="googleCalendar">
+  <div style="position:fixed;top: 3em; right: 1em">
+ 	<iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showTz=0&amp;mode=AGENDA&amp;height=400&amp;wkst=2&amp;hl=es&amp;bgcolor=%23FFFFFF&amp;src=inheron.com_5nj4ir1gr3m79mvo1od6tjjujc%40group.calendar.google.com&amp;color=%23B1440E&amp;ctz=Europe%2FMadrid" width="260" height="400" frameborder="0" scrolling="no"></iframe>
+  </div>
 </template>
 
 <template name="navigate">
@@ -89,7 +160,11 @@
 	    <ul class="nav">
 	      <li class="active qNav" id="qHome"><a href="#">Home</a></li>
 	      <li class = "qNav" id="qDatos"><a href="#">Datos</a></li>
+	      <li class = "qNav pull-right" id="qConfig"><a href="#">Config</a></li>
 	    </ul>
+	    <div class="pull-right">
+	      {{ loginButtons}}
+	    </div>
 	  </div>
 	</div>
 </template>

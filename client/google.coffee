@@ -47,10 +47,21 @@ google =
       requestOfflineToken: true },
       (err)->
         console.log err
+        google.getUserData()
   logout: ->
     Meteor.logout (err)->
       console.log err
 
+  getUserData: ->
+    url = "https://www.googleapis.com/oauth2/v1/userinfo";
+    params = 
+      access_token: Meteor.user().services.google.accessToken,
+      part: "snippet",
+      mine: "true"
+    Meteor.http.get url, {params: params}, (err, result) ->
+      Session.set "avatar", result.data.picture
+      Session.set "username", result.data.name
+    
   #removeEvent: (id)->
   #	url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' + id
   #  Auth= 'Bearer ' + Meteor.user().services.google.accessToken

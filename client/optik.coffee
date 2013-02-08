@@ -168,7 +168,6 @@ Template.loginScreen.events
   'click .log-google': ->
     google.login()
 
-
 # detalles de cliente
 Template.datosCliente.datos = ->
   return Clientes.findOne {_id: Session.get 'clienteActual'}
@@ -197,6 +196,10 @@ Template.datosCliente.events
     updateNotas id
 
 #Gestión de la barra de navegación
+Template.navigate.userName = ->
+  return Session.get "username"
+Template.navigate.avatar = ->
+  return Session.get "avatar"
 
 Template.navigate.events
   'click #qDatos' : ->

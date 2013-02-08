@@ -35,6 +35,22 @@ gCal =
           flashOK "La alerta se añadió a Google Calendar" 
           return result.id
     console.log status
+
+
+google = 
+  login: ->
+    Meteor.loginWithGoogle {
+      requestPermissions: 
+        ['https://www.googleapis.com/auth/calendar',
+         'https://www.googleapis.com/auth/userinfo.profile',
+         'https://www.googleapis.com/auth/tasks']
+      requestOfflineToken: true },
+      (err)->
+        console.log err
+  logout: ->
+    Meteor.logout (err)->
+      console.log err
+
   #removeEvent: (id)->
   #	url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' + id
   #  Auth= 'Bearer ' + Meteor.user().services.google.accessToken

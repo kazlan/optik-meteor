@@ -163,6 +163,12 @@ Template.flash.events
   'click #flash': ->
     flashReset()
 
+# Login screen
+Template.loginScreen.events
+  'click .log-google': ->
+    google.login()
+
+
 # detalles de cliente
 Template.datosCliente.datos = ->
   return Clientes.findOne {_id: Session.get 'clienteActual'}
@@ -249,6 +255,11 @@ Meteor.startup ->
   Session.set "paginaActual","home"
   filepicker.setKey 'A4fW2SAMPSGKQh6kXZcz6z'
   moment.lang('es')
+  if Meteor.userId()
+    console.log 'estaba in'
+    Meteor.logout()
+  else
+    console.log 'está off'
 
 ##########################
 # Helpers

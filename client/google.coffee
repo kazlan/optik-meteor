@@ -46,11 +46,11 @@ google =
          'https://www.googleapis.com/auth/tasks']
       requestOfflineToken: true },
       (err)->
-        console.log err
+        console.log(err) if err
         google.getUserData()
   logout: ->
     Meteor.logout (err)->
-      console.log err
+      console.log(err) if err
 
   getUserData: ->
     url = "https://www.googleapis.com/oauth2/v1/userinfo";

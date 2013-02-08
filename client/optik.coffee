@@ -1,9 +1,18 @@
+#Codigo a lanzar en cuanto se activa la app
+console.log Session.get 'logOK'
+Session.set 'logOK', false
+
 Meteor.subscribe "userinfo"
 
 Meteor.autosubscribe ->
   Meteor.subscribe "listaClientes", Session.get("searchData")
   
 Clientes = new Meteor.Collection 'clientes'
+
+#Flag para no refrescar toda la app y despues hacer el logout
+Template.contenedor.logOK = ->
+  console.log "en template", Session.get 'logOK'
+  return Session.get 'logOK'
 
 #Lista de clientes para la tabla principal
 Template.rowsClientes.clientes = ->
@@ -167,6 +176,8 @@ Template.flash.events
 Template.loginScreen.events
   'click .log-google': ->
     google.login()
+    console.log 'en login (', Session.get 'logOK'
+    Session.set 'logOK', true
 
 # detalles de cliente
 Template.datosCliente.datos = ->
@@ -217,6 +228,7 @@ Template.navigate.events
     $('#qDatos').removeClass 'active'
     $('#qConfig').addClass 'active'
     Session.set 'paginaActual', 'config'  
+
 #
 Template.pageRenderer.homePage = ->
   return Session.equals "paginaActual", "home"
@@ -258,11 +270,12 @@ Meteor.startup ->
   Session.set "paginaActual","home"
   filepicker.setKey 'A4fW2SAMPSGKQh6kXZcz6z'
   moment.lang('es')
+
   if Meteor.userId()
-    console.log 'estaba in'
-    Meteor.logout()
-  else
-    console.log 'está off'
+    Meteor.logout ->
+      console.log 'logged out'
+      Session.set 'logOK', false
+
 
 ##########################
 # Helpers

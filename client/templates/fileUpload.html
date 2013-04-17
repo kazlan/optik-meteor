@@ -1,0 +1,63 @@
+<template name="fileUpload">
+      <!-- Las notificaciones van a ir al Flash, está en el root debajo del menu pral.
+      {{#if mensaje}}
+    	<p id="mensajes">
+    		{{mensaje}}
+    	<p>
+    {{/if}} -->
+  {{> wizardBase }}
+
+  <div class="alert alert-info">
+    <div id="botoneraDatos">
+
+      <button class="btn" type="button" id="btnCSV">CSV</button>
+      <button class="btn" type="button" id="btnCLEAR">Clear</button>
+      <button class="btn" type="button" id="btnRestore">Restore</button>
+      <button class="btn" type="button" id="btnFixCercanas">Fix Cercanas</button>
+    </div>  
+    {{> editorFicha}}
+  </div>
+</template>
+
+<template name="wizardBase">
+  <!-- Bloque backup DB -->
+  <div id = "wizbackup" class="alert alert-info">
+  <p><h2>Backup de la base de datos</h2></p>
+    <p id="backupActionDiv">
+      Pulsa el botón de debajo para iniciar el proceso de copia de seguridad de losdatos.
+      <p>
+      <button class="btn btn-large" id="btnBackup"> Realizar copia de seguridad de datos </button>
+      </p>
+    </p>
+  </div>
+  <!-- Bloque importacion archivo de datos -->
+  <div id="wizImport" class="alert alert-info">
+  <p><h2>Importación del archivo de datos</h2></p>
+    <p id="importActionDiv">
+      Pulsa el botón de debajo para iniciar el proceso de importación de datos.
+      <p>
+        <button class="btn btn-large" type="filepicker" id="uploadWidget"> Importar archivo .TSV </button>
+        <!--<input type="filepicker" id='uploadWidget'/>  -->
+      </p>
+    </p>
+  </div>
+  <!-- Bloque config columnas -->
+  <div id="wizColumnas" class="alert alert-info">
+    <p><h2>Configuración de las columnas del archivo</h2></p>
+    <p id="columnasActionDiv">
+      
+    </p>
+  </div> 
+</template>
+
+<template name="editorFicha">
+  <div id="editor">
+    <div id="editBotonera">
+      <input type="text" id="inputNombre" placeholder="Nombre cliente">
+      <button class="btn" type="button" id="btnLoadFicha">Cargar</button>
+    </div>
+    <div id="detalleFicha">
+      <input type="text" id="detalleNombre" placeholder="nombre completo">
+      <input type="text" id="detalleAlertaCercana" placeholder="alertaCercana">
+  </div>
+</template>

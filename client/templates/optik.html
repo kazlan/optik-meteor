@@ -4,13 +4,42 @@
 </head>
 
 <body>
-  {{> modalAlerta}}	
-  {{> modalOpcionesAlerta}}
-  {{> modalNota}}
-
-  {{> navigate}}
-  {{> pageRenderer}}
+  {{> contenedor}}
 </body>
+
+<template name="contenedor">
+  {{#if logOK}}
+    {{> modalAlerta}}	
+    {{> modalOpcionesAlerta}}
+    {{> modalNota}}
+
+    {{> navigate}}
+    {{> pageRenderer}}
+  {{else}}	
+    {{> loginScreen}}
+  {{/if}}
+</template>
+
+<template name="loginScreen">
+  <div class="span8 offset2 loginBox">
+    <h1><span class="log-in">Optik login</span></h1>
+    <h2>Accede a la aplicación a través de tu usuario de Google</h2>
+	<div class="row">
+	  <div class="span8 offset1">
+	    <p> 
+	    <a href="#" class="log-google"> 
+	    	<span style="float: left; margin-left: 10px;">
+	    	  <img src="/img/google.png" style="width:96px;height:96px"></img>
+	    	<span>
+			<span style="padding-left: 20px;">	    
+	    	Conectar con Google
+	        </span>
+	    </a>    
+	    </p>
+	  </div>
+    </div>
+  </div>​​
+</template>
 
 <template name="pageRenderer">
   <div class="container">
@@ -54,7 +83,7 @@
 	<div id='boxCliente'>
 		<div id='boxTitulo'>
 			<span id="spanNombreCliente">
-				{{nombre}}
+				{{nombre}} ({{cluster}})
 			</span>
 			<span class="alignright">
 			  <img src="/img/nota.jpg" class="icono-top" id="btnNota" style="margin-right: 8px;"></img>	
@@ -162,8 +191,9 @@
 	      <li class = "qNav" id="qDatos"><a href="#">Datos</a></li>
 	      <li class = "qNav pull-right" id="qConfig"><a href="#">Config</a></li>
 	    </ul>
-	    <div class="pull-right">
-	      {{ loginButtons}}
+	    <div class="pull-right" style="margin-top: 2px;">
+	      {{ userName }}
+	      <img src={{ avatar }} style="width: 34px; height: 34px;"></img>
 	    </div>
 	  </div>
 	</div>

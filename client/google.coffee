@@ -1,9 +1,9 @@
-Accounts.ui.config({requestPermissions: {google: 
-  ['https://www.googleapis.com/auth/calendar',
-  'https://www.googleapis.com/auth/userinfo.profile',
-  'https://www.googleapis.com/auth/tasks']}}, requestOfflineToken: {google: true})
+# Accounts.ui.config({requestPermissions: {google: 
+#  ['https://www.googleapis.com/auth/calendar',
+#  'https://www.googleapis.com/auth/userinfo.profile',
+#  'https://www.googleapis.com/auth/tasks']}}, requestOfflineToken: {google: true})
 
-gCal = 
+@gCal = 
   insertEvent: (cliente, poblacion, texto, fecha)->
   #to-do calendar devuelve un Event Object que incluye un ID
   # si incluimos este id como campo en la alerta podremos despues
@@ -35,6 +35,41 @@ gCal =
           flashOK "La alerta se añadió a Google Calendar" 
           return result.id
     console.log status
+
+
+@google = 
+  login: ->
+    Meteor.loginWithGoogle {
+      requestPermissions: 
+        ['https://www.googleapis.com/auth/calendar',
+         'https://www.googleapis.com/auth/userinfo.profile',
+         'https://www.googleapis.com/auth/tasks']
+      requestOfflineToken: true },
+      (err)->
+        console.log(err) if err
+        #google.getUserData()
+        Session.set 'username', Meteor.user().services.google.name
+        Session.set 'avatar', Meteor.user().services.google.picture
+        google.getRefreshToken()
+  logout: ->
+    Meteor.logout (err)->
+      console.log(err) if err
+
+  getUserData: ->
+    url = "https://www.googleapis.com/oauth2/v1/userinfo";
+    params = 
+      access_token: Meteor.user().services.google.accessToken,
+      part: "snippet",
+      mine: "true"
+    Meteor.http.get url, {params: params}, (err, result) ->
+      Session.set "avatar", result.data.picture
+      Session.set "username", result.data.name
+
+  getRefreshToken: ->
+    console.log 'entro en refreshToken'
+    Meteor.call 'refreshToken', (err, result)->
+      console.log 'result: ', err, result
+
   #removeEvent: (id)->
   #	url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' + id
   #  Auth= 'Bearer ' + Meteor.user().services.google.accessToken

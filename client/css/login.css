@@ -1,0 +1,90 @@
+/* Demo 2 */
+
+.loginBox {
+    /* Size and position 
+    position: relative;    
+    width: 540px;*/
+    margin-top: 200px;
+    padding: 15px;
+
+    /* Styles */
+    background: #fffaf6;
+    border-radius: 4px;
+    color: #7e7975;
+    box-shadow:
+        0 2px 2px rgba(0,0,0,0.2),        
+        0 1px 5px rgba(0,0,0,0.2),        
+        0 0 0 12px rgba(0,0,0,0.1); 
+}
+
+.loginBox h1 {
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #bdb5aa;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #EBE6E2;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.form-2 .float:first-of-type {
+    padding-right: 5px;
+}
+
+.form-2 .float:last-of-type {
+    padding-left: 5px;
+}
+
+.loginBox h2 {
+    display: block;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    padding: 0 0 5px 2px;
+    font-weight: 400;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    font-size: 18px;
+}
+
+.loginBox .log-google {
+    /* Size and position */
+    width: 80%;
+    height: 108px;
+    float: left;
+    /*position: relative;
+
+    /* Styles */
+    box-shadow: inset 0 1px rgba(255,255,255,0.3);
+    border-radius: 3px;
+    cursor: pointer;
+
+    /* Font styles */
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-size: 28px;
+    line-height: 108px; /* Same as height */
+    text-align: right;
+    font-weight: bold;
+}
+
+.loginBox .log-google {
+    background: #34a5cf; /* Fallback */
+    background: -moz-linear-gradient(#34a5cf, #2a8ac4);
+    background: -ms-linear-gradient(#34a5cf, #2a8ac4);
+    background: -o-linear-gradient(#34a5cf, #2a8ac4);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#34a5cf), to(#2a8ac4));
+    background: -webkit-linear-gradient(#34a5cf, #2a8ac4);
+    background: linear-gradient(#34a5cf, #2a8ac4);
+    border: 1px solid #2b8bc7;
+    color: #ffffff;
+    text-shadow: 0 -1px rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+
+.loginBox .log-google:hover {
+    box-shadow: 
+        inset 0 1px rgba(255,255,255,0.3), 
+        inset 0 20px 40px rgba(255,255,255,0.15);
+}
+
+.loginBox .log-google:active{
+    top: 1px;
+}

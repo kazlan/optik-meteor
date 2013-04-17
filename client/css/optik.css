@@ -1,0 +1,109 @@
+/* CSS declarations go here */
+
+body {
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-weight: 300;
+	font-size: 100%;
+	background: url(/img/codrops_bg.jpg) repeat top left;
+}
+
+#boxCliente, #detalleCliente{
+	font-size: 120%;
+	font-weight: 400;
+	background: white;
+	cursor: pointer;
+	box-shadow: 0 0 8px rgba(0,0,0,0.2);
+	margin-bottom: 10px;
+	padding: 20px 20px 20px 20px;
+	position: relative;
+}
+
+#boxTitulo {
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding-bottom: 6px;
+	margin-bottom: 6px;
+}
+
+#boxDireccion {
+	font-size: 90%;
+	font-weight: 300;
+	color: rgba(0,0,0,0.6);
+	margin-bottom: 8px;
+	margin-top: 2px;
+}
+
+#boxBordeAzul {
+	background: rgba(0,0,200,0.2);
+	width: 1%;
+	height: 40px;
+	display: inline-table;
+}
+#boxInnerPedidos{
+	background: rgba(0,0,0,0.1);
+	width:90%;
+	height: 40px;
+	display: inline-table;
+
+}
+
+.XXL {
+	font-size: 22px;
+	line-height: 130%;
+	height:34px;
+}
+
+#datosClienteTable{
+	margin: 10px;
+	padding: 20px;
+	background: white;
+
+}
+
+#mainAlertas {
+	background: url(/img/nBarraAmarilla.png) repeat-y top left;
+	background-color: rgba(0,0,0,0.07);	padding: 2px 10px 2px 20px;
+	box-shadow: 0 0 2px rgba(0,0,0,0.2);
+	margin-bottom: 3px;
+	min-height: 24px;
+}
+
+#mainPedidos{
+	background: url(/img/nBarraAzul.png) repeat-y top left;
+	background-color: rgba(0,0,0,0.07);	padding: 2px 10px 2px 20px;
+	box-shadow: 0 0 2px rgba(0,0,0,0.2);
+	margin-bottom: 3px;	
+}
+
+#mainNotas{
+	background: url(/img/nBarraNaranja.png) repeat-y top left;
+	background-color: rgba(0,0,0,0.07);
+	padding: 2px 10px 2px 20px;
+	box-shadow: 0 0 2px rgba(0,0,0,0.2);
+	margin-bottom: 3px;	
+}
+
+.error {
+	/*border: 2px solid red;*/
+}
+
+.icono {
+	width: 20px;
+	height: 20px;
+	opacity: 0.8;
+	padding-left: 4px;
+	padding-bottom: 2px;
+}
+
+.icono-top {
+	width: 34px;
+	height: 34px;
+	opacity: 0.8;
+	margin: -12px 2px 0px 2px;
+}
+
+.alignright {
+	float: right;
+}
+.alignleft {
+	float: left;
+}

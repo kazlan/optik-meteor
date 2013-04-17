@@ -7,7 +7,7 @@ Meteor.subscribe "userinfo"
 Meteor.autosubscribe ->
   Meteor.subscribe "listaClientes", Session.get("searchData")
   
-Clientes = new Meteor.Collection 'clientes'
+@Clientes = new Meteor.Collection 'clientes'
 
 #Flag para no refrescar toda la app y despues hacer el logout
 Template.contenedor.logOK = ->
@@ -238,37 +238,10 @@ Template.pageRenderer.detalleCliente = ->
   return Session.equals "paginaActual", "detalleCliente"
 Template.pageRenderer.configPage = ->
   return Session.equals "paginaActual", "config"
-
-# Gestion del file uploader y de la carga del archivo de datos
-# una vez cargado el archivo correctamente cambiar el boton a Importar 09/01/13
-Template.fileUpload.rendered = ->  
-  filepicker.constructWidget document.getElementById('uploadWidget')
-
-Template.fileUpload.events
-  'change #uploadWidget' : (event)->
-    console.log "Upload done! ",event.fpfile.url
-    Session.set "uploadedFileURL", event.fpfile.url
-    console.log "Importando los datos"
-    Session.set "mensaje", "Importando los datos del archivo."
-    testIO event.fpfile.url
-  'click #btnCSV' : ->
-    testIO Session.get "uploadedFileURL"
-  'click #btnCLEAR' : ->
-    Clientes.remove({}) 
-  'click #btnBackup' : ->
-    Meteor.call 'backupClientes'
-  'click #btnRestore': ->
-    Meteor.call 'restoreClientes'
-  'click #btnFixCercanas' : ->
-    fixAlertasCercanas()
-
-Template.fileUpload.mensaje = ->
-  return Session.get("mensaje") || ""
   
 Meteor.startup ->
   Session.set "searchData", conNotasoAlertas()
   Session.set "paginaActual","home"
-  filepicker.setKey 'A4fW2SAMPSGKQh6kXZcz6z'
   moment.lang('es')
 
   if Meteor.userId()
@@ -372,16 +345,6 @@ cerrarAlerta= (como)->
   Clientes.update {_id: cliente},
                   {$push: {alertas: alert}}
   $('#mdlOpcionesAlerta').modal('hide')
-
-#TestIO Saca por consola el contenido del archivo que hemos subido a filepicker.io
-# archivo de ejemplo
-# https://www.filepicker.io/api/file/c1xiyw0tSNau2Kt2CMww
-testIO= (url) ->
-  if url
-    filepicker.read url, (data)->
-      Meteor.call 'importar', data
-  else
-    console.log "Error al importar el archivo desde Filepicker"
 
 # consoleLogs all properties of an object
 logProperties = (obj) ->

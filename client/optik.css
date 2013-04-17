@@ -12,9 +12,9 @@ body {
 	font-weight: 400;
 	background: white;
 	cursor: pointer;
-	box-shadow: 0 0 5px rgba(0,0,0,0.2);
+	box-shadow: 0 0 8px rgba(0,0,0,0.2);
 	margin-bottom: 10px;
-	padding: 4px 10px 2px 20px;
+	padding: 20px 20px 20px 20px;
 	position: relative;
 }
 
@@ -28,7 +28,7 @@ body {
 	font-size: 90%;
 	font-weight: 300;
 	color: rgba(0,0,0,0.6);
-	margin-bottom: 8px;
+	margin-bottom: 12px;
 	margin-top: 2px;
 }
 
@@ -95,11 +95,10 @@ body {
 }
 
 .icono-top {
-	width: 26px;
-	height: 26px;
+	width: 34px;
+	height: 34px;
 	opacity: 0.6;
-	margin: -4px 2px 0px 2px;
-
+	margin: -12px 2px 0px 2px;
 }
 
 .alignright {
